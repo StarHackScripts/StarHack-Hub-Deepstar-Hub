@@ -1,0 +1,114 @@
+print("outdated")
+-- Enviar mensaje de update
+
+local StarterGui = game:GetService("StarterGui") -- Asegurarse de que StarterGui esté definido
+
+-- Comienzo
+local StarterGui = game:GetService("StarterGui")
+local Players = game:GetService("Players")
+local Player = Players.LocalPlayer
+local PlayerGui = Player:WaitForChild("PlayerGui")
+
+
+task.wait(duration) -- Esperar 10 segundos antes de mostrar el GUI
+
+-- Crear GUI
+local CreditsGui = Instance.new("ScreenGui", PlayerGui)
+CreditsGui.Name = "CreditsGui"
+
+local Background = Instance.new("Frame", CreditsGui)
+Background.Size = UDim2.new(0, 400, 0, 250)
+Background.Position = UDim2.new(0.5, -200, 0.5, -125)
+Background.BackgroundColor3 = Color3.new(0.2, 0.2, 0.2)
+Background.BackgroundTransparency = 0.3
+Background.AnchorPoint = Vector2.new(0.5, 0.5)
+
+local UICorner = Instance.new("UICorner", Background)
+UICorner.CornerRadius = UDim.new(0, 10)
+
+-- Título
+local Title = Instance.new("TextLabel", Background)
+Title.Size = UDim2.new(1, 0, 0, 50)
+Title.Position = UDim2.new(0, 0, 0, 0)
+Title.BackgroundTransparency = 1
+Title.Text = "Outdated"
+Title.Font = Enum.Font.SourceSansBold
+Title.TextSize = 24
+Title.TextColor3 = Color3.new(1, 1, 1)
+
+-- Mensaje
+local Message = Instance.new("TextLabel", Background)
+Message.Size = UDim2.new(1, -20, 0, 100)
+Message.Position = UDim2.new(0, 10, 0, 50)
+Message.BackgroundTransparency = 1
+Message.Text = "The script is already outdated and has been improved, to get its latest version without ads join our Discord server. You can also find it on YouTube."
+Message.Font = Enum.Font.SourceSans
+Message.TextSize = 18
+Message.TextColor3 = Color3.new(1, 1, 1)
+Message.TextWrapped = true
+Message.TextYAlignment = Enum.TextYAlignment.Top
+
+-- Botón de Copy Discord
+local CopyDiscordButton = Instance.new("TextButton", Background)
+CopyDiscordButton.Size = UDim2.new(0, 150, 0, 40)
+CopyDiscordButton.Position = UDim2.new(0.5, -160, 0.75, 0)
+CopyDiscordButton.BackgroundColor3 = Color3.new(0.3, 0.3, 0.3)
+CopyDiscordButton.Text = "Copy Discord"
+CopyDiscordButton.Font = Enum.Font.SourceSans
+CopyDiscordButton.TextSize = 18
+CopyDiscordButton.TextColor3 = Color3.new(1, 1, 1)
+
+local DiscordCorner = Instance.new("UICorner", CopyDiscordButton)
+DiscordCorner.CornerRadius = UDim.new(0, 8)
+
+CopyDiscordButton.MouseButton1Click:Connect(function()
+    setclipboard("https://discord.gg/WTu5Eny3qZ")
+end)
+
+-- Botón de Copy YouTube
+local CopyYouTubeButton = Instance.new("TextButton", Background)
+CopyYouTubeButton.Size = UDim2.new(0, 150, 0, 40)
+CopyYouTubeButton.Position = UDim2.new(0.5, 10, 0.75, 0)
+CopyYouTubeButton.BackgroundColor3 = Color3.new(0.3, 0.3, 0.3)
+CopyYouTubeButton.Text = "Copy YouTube"
+CopyYouTubeButton.Font = Enum.Font.SourceSans
+CopyYouTubeButton.TextSize = 18
+CopyYouTubeButton.TextColor3 = Color3.new(1, 1, 1)
+
+local YouTubeCorner = Instance.new("UICorner", CopyYouTubeButton)
+YouTubeCorner.CornerRadius = UDim.new(0, 8)
+
+CopyYouTubeButton.MouseButton1Click:Connect(function()
+    setclipboard("https://youtube.com/@starhackscripts?si=iQkPJuxmavYpCRck")
+end)
+
+-- Botón de cierre con cronómetro
+local CloseButton = Instance.new("TextButton", Background)
+CloseButton.Size = UDim2.new(0, 40, 0, 40)
+CloseButton.Position = UDim2.new(1, -45, 0, 5)
+CloseButton.BackgroundColor3 = Color3.new(0.5, 0, 0)
+CloseButton.Text = "10"
+CloseButton.Font = Enum.Font.SourceSansBold
+CloseButton.TextSize = 18
+CloseButton.TextColor3 = Color3.new(1, 1, 1)
+
+local CloseCorner = Instance.new("UICorner", CloseButton)
+CloseCorner.CornerRadius = UDim.new(1, 0)
+
+-- Contador
+local countdownFinished = false
+task.spawn(function()
+    for i = 10, 1, -1 do
+        CloseButton.Text = tostring(i)
+        task.wait(1)
+    end
+    CloseButton.Text = "X"
+    countdownFinished = true  -- El contador ha terminado
+end)
+
+-- Función para cerrar el GUI solo cuando el contador termine
+CloseButton.MouseButton1Click:Connect(function()
+    if countdownFinished then
+        CreditsGui:Destroy()  -- Cerrar el GUI
+    end
+end)
